@@ -171,7 +171,6 @@ didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSe
     
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
     
-    
     UIWindow *window = [UIApplication sharedApplication].delegate.window;
     
     window.rootViewController = navigationController;
