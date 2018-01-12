@@ -69,7 +69,7 @@
     
     
 
-    [FIRApp configure];
+ //   [FIRApp configure];
     
     _UserLogin =[[NSUserDefaults standardUserDefaults]valueForKey:@"LoginMessage"];
     
