@@ -533,7 +533,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="119.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Sample" translatesAutoresizingMaskIntoConstraints="NO" id="w5z-EY-SKj">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NoImage" translatesAutoresizingMaskIntoConstraints="NO" id="w5z-EY-SKj">
                                                     <rect key="frame" x="10" y="10" width="80" height="80"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="80" id="F9e-iA-Bos"/>
@@ -2221,7 +2221,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="119.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Sample" translatesAutoresizingMaskIntoConstraints="NO" id="dZM-Fr-HGf">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NoImage" translatesAutoresizingMaskIntoConstraints="NO" id="dZM-Fr-HGf">
                                                     <rect key="frame" x="10" y="10" width="80" height="80"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="80" id="NJJ-79-SKM"/>
@@ -3045,7 +3045,7 @@
                                                             <constraint firstAttribute="width" constant="80" id="CMD-GG-eIk"/>
                                                             <constraint firstAttribute="height" constant="80" id="ecY-jn-IfZ"/>
                                                         </constraints>
-                                                        <state key="normal" image="Sample"/>
+                                                        <state key="normal" image="NoImage"/>
                                                         <connections>
                                                             <action selector="imageChangeButtonClick:" destination="7QY-Sa-z82" eventType="touchUpInside" id="YMX-TL-fo0"/>
                                                         </connections>
@@ -4210,20 +4210,8 @@ We offer a 24/7 service with a designated on-call rota outside of office hours. 
                                 <color key="textColor" red="0.37254901959999998" green="0.15686274510000001" blue="0.38431372549999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Enter Feedback" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="79X-5g-Hdd">
-                                <rect key="frame" x="0.0" y="220" width="375" height="100"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="a3K-J6-1oh"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="15"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                <connections>
-                                    <outlet property="delegate" destination="W2m-bl-c6K" id="aTh-fG-PWy"/>
-                                </connections>
-                            </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8cp-UV-4di">
-                                <rect key="frame" x="107" y="353" width="160" height="40"/>
+                                <rect key="frame" x="107" y="342.5" width="160" height="40"/>
                                 <color key="backgroundColor" red="0.37254901959999998" green="0.15686274510000001" blue="0.38431372549999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="Eyk-X0-Kao"/>
@@ -4237,25 +4225,37 @@ We offer a 24/7 service with a designated on-call rota outside of office hours. 
                                     <action selector="submitClick:" destination="W2m-bl-c6K" eventType="touchUpInside" id="INE-Fd-p8E"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter FeedBack" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jQS-qx-3Ez">
+                                <rect key="frame" x="10" y="242.5" width="355" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="ZPX-ES-Brr"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="W2m-bl-c6K" id="ayj-mV-mjS"/>
+                                </connections>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="wPe-uM-vk4" firstAttribute="trailing" secondItem="mma-TX-kpr" secondAttribute="trailing" id="1J7-np-yZc"/>
-                            <constraint firstItem="79X-5g-Hdd" firstAttribute="trailing" secondItem="wPe-uM-vk4" secondAttribute="trailing" id="Aeg-YX-vd1"/>
-                            <constraint firstItem="79X-5g-Hdd" firstAttribute="leading" secondItem="wPe-uM-vk4" secondAttribute="leading" id="C08-q5-9gv"/>
+                            <constraint firstItem="jQS-qx-3Ez" firstAttribute="top" secondItem="wPe-uM-vk4" secondAttribute="bottom" constant="30" id="5NW-bd-Ngj"/>
                             <constraint firstItem="mma-TX-kpr" firstAttribute="leading" secondItem="yyB-IR-I8q" secondAttribute="leading" id="Cyi-ym-PYE"/>
                             <constraint firstItem="mma-TX-kpr" firstAttribute="top" secondItem="yyB-IR-I8q" secondAttribute="top" id="DDO-rr-b3L"/>
+                            <constraint firstItem="8cp-UV-4di" firstAttribute="top" secondItem="jQS-qx-3Ez" secondAttribute="bottom" constant="40" id="HUJ-GK-MPu"/>
+                            <constraint firstItem="yyB-IR-I8q" firstAttribute="trailing" secondItem="jQS-qx-3Ez" secondAttribute="trailing" constant="10" id="JQI-rz-H74"/>
                             <constraint firstItem="yyB-IR-I8q" firstAttribute="trailing" secondItem="mma-TX-kpr" secondAttribute="trailing" id="LTo-V2-ujg"/>
-                            <constraint firstItem="8cp-UV-4di" firstAttribute="top" secondItem="79X-5g-Hdd" secondAttribute="bottom" constant="33" id="UGQ-CX-GgS"/>
+                            <constraint firstItem="jQS-qx-3Ez" firstAttribute="leading" secondItem="yyB-IR-I8q" secondAttribute="leading" constant="10" id="cF5-a9-JCg"/>
                             <constraint firstItem="wPe-uM-vk4" firstAttribute="leading" secondItem="mma-TX-kpr" secondAttribute="leading" id="dec-ta-ifz"/>
                             <constraint firstItem="wPe-uM-vk4" firstAttribute="top" secondItem="mma-TX-kpr" secondAttribute="bottom" constant="20" id="fgk-9G-yQs"/>
-                            <constraint firstItem="79X-5g-Hdd" firstAttribute="top" secondItem="wPe-uM-vk4" secondAttribute="bottom" constant="7.5" id="hQD-B4-t8i"/>
-                            <constraint firstItem="8cp-UV-4di" firstAttribute="centerX" secondItem="79X-5g-Hdd" secondAttribute="centerX" id="tmy-0J-OLx"/>
+                            <constraint firstItem="8cp-UV-4di" firstAttribute="centerX" secondItem="jQS-qx-3Ez" secondAttribute="centerX" id="q58-b0-37N"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="yyB-IR-I8q"/>
                     </view>
                     <connections>
-                        <outlet property="feedBackTextView" destination="79X-5g-Hdd" id="bhM-K9-ydd"/>
+                        <outlet property="feedBackTF" destination="jQS-qx-3Ez" id="ETO-Nn-dZZ"/>
                         <outlet property="submitButton" destination="8cp-UV-4di" id="Ih5-4L-zfR"/>
                     </connections>
                 </viewController>
@@ -4285,6 +4285,7 @@ We offer a 24/7 service with a designated on-call rota outside of office hours. 
         <image name="Messages" width="92" height="92"/>
         <image name="More" width="25" height="4"/>
         <image name="NHS" width="73" height="32"/>
+        <image name="NoImage" width="375" height="211"/>
         <image name="Notification" width="13" height="15"/>
         <image name="Phone" width="35" height="35"/>
         <image name="Registered" width="16" height="94"/>

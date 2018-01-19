@@ -11,6 +11,7 @@
 #import "MessageDetailViewController.h"
 #import "MessageVideoDetailViewController.h"
 #import "MessageImageViewController.h"
+#import "GlobalVariables.h"
 #import "ApiClass.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 @interface MessageBoardViewController ()<apiRequestProtocol>
@@ -33,13 +34,13 @@
     [_messageBoardTableView addSubview:refreshControl];
      userId = [[NSUserDefaults standardUserDefaults] valueForKey:@"userId"];
     
-    
+    [self ServiceCall];
    
 }
 -(void)viewWillAppear:(BOOL)animated
 {
     
-     [self ServiceCall];
+    
     // [self.navigationController setNavigationBarHidden:YES animated:NO];
     [self.navigationController.navigationBar setBackgroundColor:[UIColor whiteColor]];
     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
@@ -185,7 +186,7 @@
             
             else{
                 
-                alertMsg= [NSMutableString stringWithFormat:@"Server Not Responding"];
+                alertMsg= [NSMutableString stringWithFormat:@"Server not responding Try After Some Time"];
                 [self showAlertWith:alertMsg];
                 
             }

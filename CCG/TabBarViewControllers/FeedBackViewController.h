@@ -12,5 +12,6 @@
 @property (strong, nonatomic) IBOutlet UITextView *feedBackTextView;
 @property (strong, nonatomic) IBOutlet UIButton *submitButton;
 - (IBAction)submitClick:(id)sender;
+@property (strong, nonatomic) IBOutlet UITextField *feedBackTF;
 
 @end

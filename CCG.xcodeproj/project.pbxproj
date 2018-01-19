@@ -51,12 +51,12 @@
 		7A43CA6D1FD513D2001D89DA /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A43CA6C1FD513D2001D89DA /* ProfileViewController.m */; };
 		7A43CA701FD513E3001D89DA /* NotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A43CA6F1FD513E3001D89DA /* NotificationsViewController.m */; };
 		7A43CA731FD513FE001D89DA /* MoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A43CA721FD513FE001D89DA /* MoreViewController.m */; };
-		7A43CA751FD517ED001D89DA /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7A43CA741FD517ED001D89DA /* OFL.txt */; };
 		7A43CA7E1FD52380001D89DA /* HomeScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A43CA7D1FD52380001D89DA /* HomeScreenViewController.m */; };
 		7A43CA811FD52B51001D89DA /* HomePageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A43CA801FD52B51001D89DA /* HomePageCollectionViewCell.m */; };
 		7A43CA851FD56310001D89DA /* EventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A43CA841FD56310001D89DA /* EventsViewController.m */; };
 		7A43CA8C1FD56596001D89DA /* EventsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A43CA8B1FD56596001D89DA /* EventsTableViewCell.m */; };
 		7A43CA901FD56B62001D89DA /* EventsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A43CA8F1FD56B62001D89DA /* EventsDetailViewController.m */; };
+		7A4FF04C2011C96E00219D29 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7A4FF04B2011C96E00219D29 /* OFL.txt */; };
 		7A5BC7091FDA526E00FB654C /* ApiClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A5BC7081FDA526E00FB654C /* ApiClass.m */; };
 		7A5BC70D1FDA528B00FB654C /* Validation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A5BC70C1FDA528B00FB654C /* Validation.m */; };
 		7A5BC7111FDA52BF00FB654C /* GlobalVariables.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A5BC7101FDA52BF00FB654C /* GlobalVariables.m */; };
@@ -167,7 +167,6 @@
 		7A43CA6F1FD513E3001D89DA /* NotificationsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationsViewController.m; sourceTree = "<group>"; };
 		7A43CA711FD513FE001D89DA /* MoreViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoreViewController.h; sourceTree = "<group>"; };
 		7A43CA721FD513FE001D89DA /* MoreViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoreViewController.m; sourceTree = "<group>"; };
-		7A43CA741FD517ED001D89DA /* OFL.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = OFL.txt; path = "../../../CCG Assests/Quicksand/OFL.txt"; sourceTree = "<group>"; };
 		7A43CA7C1FD52380001D89DA /* HomeScreenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeScreenViewController.h; sourceTree = "<group>"; };
 		7A43CA7D1FD52380001D89DA /* HomeScreenViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeScreenViewController.m; sourceTree = "<group>"; };
 		7A43CA7F1FD52B51001D89DA /* HomePageCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomePageCollectionViewCell.h; sourceTree = "<group>"; };
@@ -178,6 +177,7 @@
 		7A43CA8B1FD56596001D89DA /* EventsTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventsTableViewCell.m; sourceTree = "<group>"; };
 		7A43CA8E1FD56B62001D89DA /* EventsDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventsDetailViewController.h; sourceTree = "<group>"; };
 		7A43CA8F1FD56B62001D89DA /* EventsDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventsDetailViewController.m; sourceTree = "<group>"; };
+		7A4FF04B2011C96E00219D29 /* OFL.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = OFL.txt; path = "../../../../Desktop/CCG Assests/Quicksand/OFL.txt"; sourceTree = "<group>"; };
 		7A5BC7071FDA526A00FB654C /* ApiClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApiClass.h; sourceTree = "<group>"; };
 		7A5BC7081FDA526E00FB654C /* ApiClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiClass.m; sourceTree = "<group>"; };
 		7A5BC70B1FDA528600FB654C /* Validation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Validation.h; sourceTree = "<group>"; };
@@ -322,8 +322,8 @@
 				7A43CA5F1FD50BC9001D89DA /* Quicksand-Bold.ttf */,
 				7A43CA611FD50BCA001D89DA /* Quicksand-Light.ttf */,
 				7A43CA601FD50BC9001D89DA /* Quicksand-Medium.ttf */,
+				7A4FF04B2011C96E00219D29 /* OFL.txt */,
 				7A43CA621FD50BCA001D89DA /* Quicksand-Regular.ttf */,
-				7A43CA741FD517ED001D89DA /* OFL.txt */,
 				7A43CA5B1FD50BB6001D89DA /* OFL.txt */,
 			);
 			path = Fonts;
@@ -574,7 +574,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A43CA751FD517ED001D89DA /* OFL.txt in Resources */,
+				7A4FF04C2011C96E00219D29 /* OFL.txt in Resources */,
 				7A43CA641FD50BCA001D89DA /* Quicksand-Bold.ttf in Resources */,
 				7A43CA651FD50BCA001D89DA /* Quicksand-Medium.ttf in Resources */,
 				7A43CA661FD50BCA001D89DA /* Quicksand-Light.ttf in Resources */,

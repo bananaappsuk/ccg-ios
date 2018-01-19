@@ -23,7 +23,7 @@
     NSMutableArray *DataArray;
     NSString *alertMsg;
     NSString *str1;
-     UIRefreshControl *refreshControl;
+    UIRefreshControl *refreshControl;
     
     NSString *userId;
 }
@@ -40,11 +40,21 @@
     
     userId = [[NSUserDefaults standardUserDefaults] valueForKey:@"userId"];
     
-   // [self ServiceCall];
+    [self ServiceCall];
 }
 -(void)viewWillAppear:(BOOL)animated
 {
-     [self ServiceCall];
+   
+    
+    if ([[GlobalVariables appVars].EventRegister isEqualToString:@"RegisterEvent"]) {
+         [self ServiceCall];
+    }
+    else
+    {
+        //
+    }
+    
+    
     // [self.navigationController setNavigationBarHidden:YES animated:NO];
     [self.navigationController.navigationBar setBackgroundColor:[UIColor whiteColor]];
     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
@@ -131,7 +141,7 @@
                 NSString *respCode =[NSString stringWithFormat:@"%@", [responseDict valueForKey:@"StatusCode"]];
                 if([respCode isEqualToString:@"200"])
                 {
-                    
+                    [GlobalVariables appVars].EventRegister = @"";
                     
                     DataArray = [[NSMutableArray alloc]init];
                     DataArray = [responseObject valueForKey:@"EventList"];
@@ -201,7 +211,7 @@
             
             else{
                 
-                alertMsg= [NSMutableString stringWithFormat:@"Server Not Responding"];
+                alertMsg= [NSMutableString stringWithFormat:@"Server Not Responding Try After Some Time"];
                 [self showAlertWith:alertMsg];
                 
             }

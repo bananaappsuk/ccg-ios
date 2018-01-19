@@ -25,7 +25,9 @@
 @property(nonatomic, strong)  NSArray *cartItemsArray ;
 
 @property (nonatomic, retain) NSString *loginFrom;
-
+@property (nonatomic, retain) NSString *EventRegister;
+@property (nonatomic, retain) NSString *JobRegister;
+@property (nonatomic, retain) NSString *TrainingRegister;
 @property (nonatomic, retain) NSString *photoFrom;
 @property (nonatomic, retain) NSString *Search;
 @property (nonatomic, retain) NSString *location;

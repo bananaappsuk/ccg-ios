@@ -32,6 +32,14 @@
     _submitButton.layer.borderWidth=1.0f;
     
     userId = [[NSUserDefaults standardUserDefaults] valueForKey:@"userId"];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWasShown:)
+                                                 name:UIKeyboardDidShowNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillBeHidden:)
+                                                 name:UIKeyboardWillHideNotification object:nil];
 
     
 }
@@ -82,7 +90,7 @@
     apiRequest.apiDelegate = self;
     
     dispatch_async(dispatch_get_main_queue(), ^{
-    NSString *strURL=[NSString stringWithFormat:@"http://ccg.bananaappscenter.com/api/User/FeedbackSubmit?UserID=%@&FeedBack=%@",userId,_feedBackTextView.text];
+    NSString *strURL=[NSString stringWithFormat:@"http://ccg.bananaappscenter.com/api/User/FeedbackSubmit?UserID=%@&FeedBack=%@",userId,_feedBackTF.text];
         
         NSString* encodedUrl = [strURL stringByAddingPercentEscapesUsingEncoding:
                                 NSASCIIStringEncoding];
@@ -91,7 +99,7 @@
         
         NSDictionary *emailData = [[NSDictionary alloc] initWithObjectsAndKeys:
                                    userId,@"UserID",
-                                   _feedBackTextView.text,@"FeedBack",
+                                   _feedBackTF.text,@"FeedBack",
                                    nil];
         
         [apiRequest SendHttpPost:emailData withUrl:encodedUrl withrequestType:RequestTypeFeedback];
@@ -135,7 +143,7 @@
                                  handler:^(UIAlertAction * action)
                                  {
                                      
-                                     _feedBackTextView.text = @"";
+                                     _feedBackTF.text = @"";
                                      
                                      [self HomeView];
                                      
@@ -182,30 +190,44 @@
     
 }
 
+#pragma mark - Keyboard Methods
 
-
-
-
--(void)textViewDidBeginEditing:(UITextView *)textView
+- (void)keyboardWasShown:(NSNotification*)notification
 {
-  
     
-    if ([_feedBackTextView.text isEqualToString:@"Enter Feedback"]) {
-        _feedBackTextView.text = @"";
-        _feedBackTextView.textColor = [UIColor blackColor];
-    }
-   
-     [textView becomeFirstResponder];
 }
 
--(void)textViewDidEndEditing:(UITextView *)textView
+- (void)keyboardWillBeHidden:(NSNotification*)notification
 {
-    if ([textView.text isEqualToString:@""]) {
-        textView.text = @"Enter Feedback";
-        textView.textColor = [UIColor lightGrayColor];
-    }
-     [textView becomeFirstResponder];
+    
+    
+    [self.feedBackTF resignFirstResponder];
+   
+    
 }
+
+
+
+//-(void)textViewDidBeginEditing:(UITextView *)textView
+//{
+//
+//
+//    if ([_feedBackTextView.text isEqualToString:@"Enter Feedback"]) {
+//        _feedBackTextView.text = @"";
+//        _feedBackTextView.textColor = [UIColor blackColor];
+//    }
+//
+//     [textView becomeFirstResponder];
+//}
+//
+//-(void)textViewDidEndEditing:(UITextView *)textView
+//{
+//    if ([textView.text isEqualToString:@""]) {
+//        textView.text = @"Enter Feedback";
+//        textView.textColor = [UIColor lightGrayColor];
+//    }
+//     [textView becomeFirstResponder];
+//}
 
 
 
@@ -232,15 +254,11 @@
 
 - (IBAction)submitClick:(id)sender {
    // Validation *validate = [Validation new];
-    if (_feedBackTextView.text.length == 0) {
+    if (_feedBackTF.text.length == 0) {
         alertMsg = [NSMutableString stringWithFormat:@"Enter Feedback"];
         [self showAlertWith:alertMsg];
     }
-    else if ([self.feedBackTextView.text isEqualToString:@"Enter Feedback"]) {
-        alertMsg = [NSMutableString stringWithFormat:@"Enter Feedback"];
-        [self showAlertWith:alertMsg];
-    }
-   
+  
     else
     {
         [self serviceCall];

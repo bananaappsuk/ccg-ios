@@ -9,6 +9,7 @@
 #import "JobsViewController.h"
 #import "JobsTableViewCell.h"
 #import "JobsDetailViewController.h"
+#import "GlobalVariables.h"
 #import "ApiClass.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 @interface JobsViewController ()<apiRequestProtocol>
@@ -31,13 +32,20 @@
     [_jobsTableView addSubview:refreshControl];
      userId = [[NSUserDefaults standardUserDefaults] valueForKey:@"userId"];
     
-  //  [self ServiceCall];
+    [self ServiceCall];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    if ([[GlobalVariables appVars].JobRegister isEqualToString:@"JobRegister"]) {
+         [self ServiceCall];
+    }
+    else
+    {
+        //
+    }
     
-     [self ServiceCall];
+    
     // [self.navigationController setNavigationBarHidden:YES animated:NO];
     [self.navigationController.navigationBar setBackgroundColor:[UIColor whiteColor]];
     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
@@ -121,7 +129,7 @@
                 NSString *respCode =[NSString stringWithFormat:@"%@", [responseDict valueForKey:@"StatusCode"]];
                 if([respCode isEqualToString:@"200"])
                 {
-                    
+                    [GlobalVariables appVars].JobRegister = @"";
                     
                     DataArray = [[NSMutableArray alloc]init];
                     DataArray = [responseObject valueForKey:@"JobList"];
@@ -184,7 +192,7 @@
             
             else{
                 
-                alertMsg= [NSMutableString stringWithFormat:@"Server Not Responding"];
+                alertMsg= [NSMutableString stringWithFormat:@"Server not responding Try After Some Time"];
                 [self showAlertWith:alertMsg];
                 
             }

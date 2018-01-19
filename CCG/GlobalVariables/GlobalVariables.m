@@ -21,6 +21,9 @@ static GlobalVariables* _sharedMySingleton = nil;
         shared = [[GlobalVariables alloc] init];
         
          shared.loginFrom = [[NSString alloc]init];
+        shared.EventRegister = [[NSString alloc]init];
+        shared.JobRegister = [[NSString alloc]init];
+        shared.TrainingRegister = [[NSString alloc]init];
          shared.Search = [[NSString alloc]init];
          shared.location = [[NSString alloc]init];
          shared.distance = [[NSString alloc]init];

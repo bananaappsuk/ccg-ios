@@ -19,7 +19,6 @@
 @implementation MoreViewController
 {
     NSMutableArray *optionsArray;
-    
     UIAlertController * alert;
     UIAlertAction* yesButton;
     UIAlertAction* noButton;
@@ -120,7 +119,6 @@
 
 - (IBAction)logoutClick:(id)sender {
     
-    
     alert=[UIAlertController
            
            alertControllerWithTitle:@"CCG" message:@"Are you sure you want to exit?" preferredStyle:UIAlertControllerStyleAlert];
@@ -160,7 +158,5 @@
     [alert addAction:yesButton];
     [alert addAction:noButton];
     [self presentViewController:alert animated:YES completion:nil];
- 
-   
 }
 @end

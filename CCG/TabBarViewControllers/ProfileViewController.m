@@ -49,7 +49,7 @@
     
     _nameTF.userInteractionEnabled = NO;
     _titleTF.userInteractionEnabled = NO;
-     _imageChangeButton.userInteractionEnabled = NO;
+    _imageChangeButton.userInteractionEnabled = NO;
     
    
    //  self.submitLayoutConstraint.constant = -160;
@@ -433,7 +433,7 @@
                     
                     if([imageStr isEqualToString:@""])
                     {
-                        [_imageChangeButton setImage:[UIImage imageNamed:@"Sample"] forState:UIControlStateNormal];
+                        [_imageChangeButton setImage:[UIImage imageNamed:@"NoImage"] forState:UIControlStateNormal];
                     }
                     else
                     {
@@ -462,7 +462,7 @@
             }
             else{
                 
-                alertMsg= [NSMutableString stringWithFormat:@"Try After Some Time"];
+                alertMsg= [NSMutableString stringWithFormat:@"Server not responding Try After Some Time"];
                 [self showAlertWith:alertMsg];
                 
             }

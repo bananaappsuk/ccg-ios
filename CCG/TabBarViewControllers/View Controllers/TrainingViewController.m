@@ -9,6 +9,7 @@
 #import "TrainingViewController.h"
 #import "TrainingTableViewCell.h"
 #import "TrainingDetailViewController.h"
+#import "GlobalVariables.h"
 #import "ApiClass.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 @interface TrainingViewController ()<apiRequestProtocol>
@@ -37,8 +38,15 @@
 }
 -(void)viewWillAppear:(BOOL)animated
 {
+    if ([[GlobalVariables appVars].TrainingRegister isEqualToString:@"TrainingRegister"])
+    {
+        [self ServiceCall];
+    }
+    else
+    {
+        
+    }
     
-    [self ServiceCall];
     // [self.navigationController setNavigationBarHidden:YES animated:NO];
     [self.navigationController.navigationBar setBackgroundColor:[UIColor whiteColor]];
     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
@@ -124,7 +132,7 @@
                 if([respCode isEqualToString:@"200"])
                 {
                     
-                    
+                    [GlobalVariables appVars].TrainingRegister = @"";
                     DataArray = [[NSMutableArray alloc]init];
                     DataArray = [responseObject valueForKey:@"TraningList"];
                     
@@ -184,7 +192,7 @@
             
             else{
                 
-                alertMsg= [NSMutableString stringWithFormat:@"Server Not Responding"];
+                alertMsg= [NSMutableString stringWithFormat:@"Server not responding Try After Some Time"];
                 [self showAlertWith:alertMsg];
                 
             }
@@ -233,7 +241,7 @@
     
     if([imageStr isEqualToString:@""] || imageStr == nil)
     {
-        cell.trainingImageView.image = [UIImage imageNamed:@"Sample"];
+        cell.trainingImageView.image = [UIImage imageNamed:@"NoImage"];
     }
     else
     {
