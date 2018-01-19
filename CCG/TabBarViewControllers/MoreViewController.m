@@ -19,6 +19,10 @@
 @implementation MoreViewController
 {
     NSMutableArray *optionsArray;
+    
+    UIAlertController * alert;
+    UIAlertAction* yesButton;
+    UIAlertAction* noButton;
 }
 
 - (void)viewDidLoad {
@@ -116,18 +120,47 @@
 
 - (IBAction)logoutClick:(id)sender {
     
-  //   [GlobalVariables appVars].loginFrom = @"";
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"LoginMessage"];
-    // [self.navigationController popToRootViewControllerAnimated:NO];
     
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    LoginViewController *homeViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+    alert=[UIAlertController
+           
+           alertControllerWithTitle:@"CCG" message:@"Are you sure you want to exit?" preferredStyle:UIAlertControllerStyleAlert];
     
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
+    yesButton = [UIAlertAction
+                 actionWithTitle:@"Yes"
+                 style:UIAlertActionStyleDefault
+                 handler:^(UIAlertAction * action)
+                 {
+                     
+                     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"LoginMessage"];
+                     
+                     
+                     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                     LoginViewController *homeViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+                     
+                     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
+                     
+                     
+                     UIWindow *window = [UIApplication sharedApplication].delegate.window;
+                     
+                     window.rootViewController = navigationController;
+                     
+                 }];
+    
+    noButton = [UIAlertAction
+                actionWithTitle:@"Cancel"
+                style:UIAlertActionStyleDefault
+                handler:^(UIAlertAction * action)
+                {
+                    
+                    
+                }];
     
     
-    UIWindow *window = [UIApplication sharedApplication].delegate.window;
     
-    window.rootViewController = navigationController;
+    [alert addAction:yesButton];
+    [alert addAction:noButton];
+    [self presentViewController:alert animated:YES completion:nil];
+ 
+   
 }
 @end
