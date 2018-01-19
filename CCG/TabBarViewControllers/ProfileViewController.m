@@ -25,6 +25,7 @@
     NSString *passwordString;
     
     UIImage *image;
+    UIView *profileView;
 }
 
 - (void)viewDidLoad {
@@ -47,10 +48,15 @@
     _confirmPasswordTF.hidden = YES;
     _submitButton.hidden = YES;
     
+    _currentTFButton.hidden = YES;
+    _passwordTFButton.hidden = YES;
+    _confirmTFButton.hidden = YES;
+    
     _nameTF.userInteractionEnabled = NO;
     _titleTF.userInteractionEnabled = NO;
     _imageChangeButton.userInteractionEnabled = NO;
     
+  
    
    //  self.submitLayoutConstraint.constant = -160;
     
@@ -69,10 +75,45 @@
     _PasswordTF.hidden = YES;
     _confirmPasswordTF.hidden = YES;
     _submitButton.hidden = YES;
+    _currentTFButton.hidden = YES;
+    _passwordTFButton.hidden = YES;
+    _confirmTFButton.hidden = YES;
     _currentPasswordTF.text = @"";
     _PasswordTF.text = @"";
     _confirmPasswordTF.text = @"";
    // [_changePasswordButton setTitle:@"ChangePassword" forState:UIControlStateNormal];
+    
+    [self.navigationController.navigationBar setBackgroundColor:[UIColor whiteColor]];
+    self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
+ 
+    self.navigationController.navigationBar.backItem.title = @" ";
+    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+    
+    
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     @{NSForegroundColorAttributeName:[UIColor colorWithRed:120.0f/255.0f green:120.0f/255.0f blue:130.0f/255.0f alpha:1.0f]}];
+    
+    //    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor redColor]};
+    //
+    //    self.navigationItem.title = @"Home";
+     self.navigationItem.title = @"Choosen Care Group";
+    
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back"]style:UIBarButtonItemStylePlain
+                                                                  target:self
+                                                                  action:@selector(HomeView)];
+    [backButton setTintColor:[UIColor blackColor]];
+    self.navigationItem.leftBarButtonItem = backButton;
+//    profileView = [[UIView alloc]init ];
+//    profileView.frame = CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-50, 10, 30, 30);
+//
+//    profileView.layer.cornerRadius = 30/2.0f;
+//    profileView.clipsToBounds = YES;
+//    [self.navigationController.navigationBar addSubview:profileView];
+    
+}
+-(void)HomeView
+{
+    [self.navigationController popViewControllerAnimated:NO];
 }
 
 -(void)viewDidDisappear:(BOOL)animated
@@ -421,8 +462,7 @@
                     _phoneLabel.text = [responseObject valueForKey:@"Mobile"];
                     _titleTF.text = [responseObject valueForKey:@"Title"];
                   NSString *imageStr = [responseObject valueForKey:@"User_Pic"];
-                    
-                    
+                  
                     [[NSUserDefaults standardUserDefaults]setValue:imageStr forKey:@"User_Pic"];
                     [[NSUserDefaults standardUserDefaults]synchronize];
                     
@@ -481,6 +521,9 @@
         _PasswordTF.hidden = NO;
         _confirmPasswordTF.hidden = NO;
         _submitButton.hidden = NO;
+        _currentTFButton.hidden = NO;
+        _passwordTFButton.hidden = NO;
+        _confirmTFButton.hidden = NO;
        //  self.submitLayoutConstraint.constant = 170;
     }
     else if([buttonStr isEqualToString:@"1"])
@@ -491,7 +534,9 @@
         _PasswordTF.hidden = YES;
         _confirmPasswordTF.hidden = YES;
        _submitButton.hidden = YES;
-        
+        _currentTFButton.hidden = YES;
+        _passwordTFButton.hidden = YES;
+        _confirmTFButton.hidden = YES;
         _currentPasswordTF.text = @"";
         _PasswordTF.text = @"";
         _confirmPasswordTF.text = @"";
@@ -585,5 +630,50 @@
         [self ChangePasswordRequest];
     }
     
+}
+- (IBAction)currentTFButtonClick:(id)sender {
+    if (self.currentPasswordTF.secureTextEntry == YES) {
+       
+        
+        self.currentPasswordTF.secureTextEntry = NO;
+        
+    }
+    
+    else
+    {
+       
+        self.currentPasswordTF.secureTextEntry = YES;
+    }
+
+    
+}
+
+- (IBAction)passwordTFButtonClick:(id)sender {
+    if (self.PasswordTF.secureTextEntry == YES) {
+   
+        self.PasswordTF.secureTextEntry = NO;
+        
+    }
+    
+    else
+    {
+        
+        self.PasswordTF.secureTextEntry = YES;
+    }
+}
+
+- (IBAction)confirmTFButtonClick:(id)sender {
+    if (self.confirmPasswordTF.secureTextEntry == YES) {
+        
+        
+        self.confirmPasswordTF.secureTextEntry = NO;
+        
+    }
+    
+    else
+    {
+        
+        self.confirmPasswordTF.secureTextEntry = YES;
+    }
 }
 @end

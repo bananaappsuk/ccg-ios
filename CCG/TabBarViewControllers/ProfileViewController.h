@@ -42,6 +42,12 @@
 - (IBAction)changePasswordClick:(id)sender;
 - (IBAction)editButtonClick:(id)sender;
 - (IBAction)submitClick:(id)sender;
+@property (strong, nonatomic) IBOutlet UIButton *currentTFButton;
+@property (strong, nonatomic) IBOutlet UIButton *passwordTFButton;
+@property (strong, nonatomic) IBOutlet UIButton *confirmTFButton;
+- (IBAction)currentTFButtonClick:(id)sender;
+- (IBAction)passwordTFButtonClick:(id)sender;
+- (IBAction)confirmTFButtonClick:(id)sender;
 
 
 @end

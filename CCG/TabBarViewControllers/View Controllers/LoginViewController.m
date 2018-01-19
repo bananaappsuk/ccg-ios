@@ -132,8 +132,8 @@
 
                [[NSUserDefaults standardUserDefaults] synchronize];
                     
-                    _userNameTF.text = @"";
-                    _passwordTF.text = @"";
+                  //  _userNameTF.text = @"";
+                  //  _passwordTF.text = @"";
                     [_checkBoxButton setImage:[UIImage imageNamed:@"UnCheckMark"] forState:UIControlStateNormal];
                     
 //                    HomeScreenViewController *homeVC;

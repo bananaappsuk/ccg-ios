@@ -303,18 +303,12 @@
                      style:UIAlertActionStyleDefault
                      handler:^(UIAlertAction * action)
                      {
-                         
-                        _commentTF.hidden =NO;
+                         _commentTF.hidden = NO;
                          _messagebubbleImage.hidden = NO;
-                         
                      }];
-        
-        
         [alert addAction:yesButton];
         [alert addAction:noButton];
         [self presentViewController:alert animated:YES completion:nil];
-        
-        
     }
    
     // [self.passwordTF resignFirstResponder];
