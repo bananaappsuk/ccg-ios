@@ -26,9 +26,12 @@
 @property (strong, nonatomic) IBOutlet UITextView *discriptionTextView;
 @property (strong , nonatomic) NSString *urlStringtrainingImage;
 @property (strong , nonatomic) NSString *homestr;
+@property (strong , nonatomic) NSString *pageStr;
 @property (strong, nonatomic) IBOutlet UIView *photoView;
 @property (strong, nonatomic) IBOutlet UIButton *registerButton;
 - (IBAction)registerClick:(id)sender;
 @property (strong, nonatomic) IBOutlet UIImageView *checkimage;
+@property (strong, nonatomic) IBOutlet UIButton *imagePopButton;
+- (IBAction)imagePopClick:(id)sender;
 
 @end

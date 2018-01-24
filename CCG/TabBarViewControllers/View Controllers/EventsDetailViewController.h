@@ -30,10 +30,13 @@
 @property (strong , nonatomic) NSString *urlStringeventImage;
 
 @property (strong , nonatomic) NSString *HomeStr;
+@property (strong , nonatomic) NSString *pageStr;
 
 - (IBAction)phoneClick:(id)sender;
 
 @property (strong, nonatomic) IBOutlet UIImageView *buttonCheckimage;
+@property (strong, nonatomic) IBOutlet UIButton *imagePopButton;
+- (IBAction)imagePopClick:(id)sender;
 
 
 @property (strong, nonatomic) IBOutlet UIView *photoView;

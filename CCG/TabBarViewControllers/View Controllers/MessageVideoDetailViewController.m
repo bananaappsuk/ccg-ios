@@ -116,10 +116,15 @@
     
    
    // _player.externalPlaybackActive = YES;
-
+    
+ 
+    
     // [self.navigationController setNavigationBarHidden:YES animated:NO];
     [self.navigationController.navigationBar setBackgroundColor:[UIColor whiteColor]];
     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
+    
+    
+    
     self.navigationController.navigationBar.backItem.title = @" ";
     [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
     
@@ -139,7 +144,8 @@
     
     //    UIImage *image = [UIImage imageNamed:@"LogoIcon"];
     //    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:image];
- 
+    //
+    
     self.navigationItem.title = @"Choosen Care Group";
 }
 
@@ -262,7 +268,7 @@
             }
             else{
                 
-                alertMsg= [NSMutableString stringWithFormat:@"Server not responding Try After Some Time"];
+                alertMsg= [NSMutableString stringWithFormat:@"Try After Some Time"];
                 [self showAlertWith:alertMsg];
                 
             }
@@ -289,13 +295,13 @@
 - (void)keyboardWasShown:(NSNotification*)notification
 {
      _commentTF.hidden =NO;
-     _messagebubbleImage.hidden = NO;
-     controller.view.frame = CGRectMake(10,-75,self.view.frame.size.width,150);
+  _messagebubbleImage.hidden = NO;
+    controller.view.frame = CGRectMake(10,-75,355,150);
 }
 
 - (void)keyboardWillBeHidden:(NSNotification*)notification
 {
-    controller.view.frame = CGRectMake(10,175,self.view.frame.size.width,150);
+    controller.view.frame = CGRectMake(10,175,355,150);
     
        
     [self.commentTF resignFirstResponder];

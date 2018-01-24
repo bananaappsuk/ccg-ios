@@ -34,8 +34,11 @@
 
 @property (strong , nonatomic) NSString *urlStringjobImage;
 @property (strong , nonatomic) NSString *homeStr;
+@property (strong , nonatomic) NSString *pageStr;
 @property (strong, nonatomic) IBOutlet UIImageView *buttonCheckImage;
 
 - (IBAction)registerClick:(id)sender;
+@property (strong, nonatomic) IBOutlet UIButton *imagePopButton;
+- (IBAction)imagePopClick:(id)sender;
 
 @end

@@ -17,6 +17,8 @@
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <FBSDKShareKit/FBSDKShareKit.h>
 #import <Social/Social.h>
+#import "TGRImageViewController.h"
+#import "TGRImageZoomAnimationController.h"
 #define Device_Width [[UIScreen mainScreen] bounds].size.width
 #define Device_Height [[UIScreen mainScreen] bounds].size.height
 
@@ -24,7 +26,7 @@
 #define NO_Of_Pages 5
 #define PAGE_CONTROL_WIDTH 120
 #define PAGE_CONTROL_HEIGHT 25
-@interface JobsDetailViewController ()<CustomIOSAlertViewDelegate,apiRequestProtocol>
+@interface JobsDetailViewController ()<CustomIOSAlertViewDelegate,apiRequestProtocol,UIViewControllerTransitioningDelegate>
 
 @end
 
@@ -36,7 +38,7 @@
     NSString *jobid;
     NSString *userid;
     NSString *moduleType;
-    NSString *alertMsg;
+    NSString *alertMsg, *buttonStr;
     NSString *jobModuleID;
     UIAlertController * alert;
     UIAlertAction* yesButton;
@@ -56,11 +58,14 @@
     
    
     _photoView.hidden =YES;
+    _buttonCheckImage.hidden = YES;
+    
+  self.jobImageView.contentMode = UIViewContentModeScaleAspectFill;
 }
 -(void)viewWillAppear:(BOOL)animated
 {
     if ([moduleType isEqualToString:_homeStr]) {
-        
+          _registerButton.hidden = YES;
        jobModuleID = [[NSUserDefaults standardUserDefaults] valueForKey:@"jobModuleId"];
       [self getJob];
         
@@ -68,6 +73,7 @@
     else
     {
         
+          _registerButton.hidden = NO;
         [self.jobImageView sd_setImageWithURL:[NSURL URLWithString:self.urlStringjobImage] placeholderImage:[UIImage imageNamed:@"NoImage"]];
         
         FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
@@ -92,19 +98,21 @@
         NSString *jobstatus = [[NSUserDefaults standardUserDefaults] valueForKey:@"jobstatus"];
         
         if ([jobstatus isEqualToString:@"1"]) {
-            [_registerButton setTitle:@"Applied" forState:UIControlStateNormal];
-            _registerButton.userInteractionEnabled = NO;
+            [_registerButton setTitle:@"Cancel" forState:UIControlStateNormal];
             
-            _registerButton.hidden = YES;
-            _buttonCheckImage.hidden = NO;
+            buttonStr = @"0";
+       //     _registerButton.userInteractionEnabled = NO;
             
-            [_buttonCheckImage setImage:[UIImage imageNamed:@"buttoncheck"]];
+        //    _registerButton.hidden = YES;
+        //    _buttonCheckImage.hidden = NO;
+            
+         //   [_buttonCheckImage setImage:[UIImage imageNamed:@"buttoncheck"]];
         }
         else
         {
             [_registerButton setTitle:@"Apply" forState:UIControlStateNormal];
-            _registerButton.userInteractionEnabled = YES;
-            _buttonCheckImage.hidden = YES;
+          //  _registerButton.userInteractionEnabled = YES;
+         //   _buttonCheckImage.hidden = YES;
         }
         
         _nameLabel.text = [[NSUserDefaults standardUserDefaults] valueForKey:@"jobName"];
@@ -155,6 +163,20 @@
 -(void)HomeView
 {
     [self.navigationController popViewControllerAnimated:NO];
+}
+
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+    if ([presented isKindOfClass:TGRImageViewController.class]) {
+        return [[TGRImageZoomAnimationController alloc] initWithReferenceImageView:self.jobImageView];
+    }
+    return nil;
+}
+
+-(id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
+    if ([dismissed isKindOfClass:TGRImageViewController.class]) {
+        return [[TGRImageZoomAnimationController alloc] initWithReferenceImageView:self.jobImageView];
+    }
+    return nil;
 }
 
 - (void)pageControlInitialisation
@@ -273,6 +295,33 @@
         
     });
 }
+-(void)unregisterservicecall
+{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    hud.label.text = @"Please wait....";
+    
+    
+    
+    ApiClass *apiRequest = [[ApiClass alloc] init];
+    apiRequest.apiDelegate = self;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        
+        
+        NSString *strURL=[NSString stringWithFormat:@"http://ccg.bananaappscenter.com/api/User/Unregistred?UserID=%@&ModuleID=%@",userid,jobid];
+        
+        NSDictionary *trainningData = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                       jobid,@"ModuleID",
+                                       userid,@"UserID",
+                                       nil];
+        
+        [apiRequest SendHttpPost:trainningData withUrl:strURL withrequestType:RequestTypeUnRegisterJob];
+        
+    });
+}
+
 -(void)responseMethod:(id) responseObject withRequestType:(RequestType) requestType;
 {
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -295,9 +344,9 @@
                 {
                     
 
-                    _registerButton.hidden = YES;
-                    _buttonCheckImage.hidden = NO;
-                    [_buttonCheckImage setImage:[UIImage imageNamed:@"buttoncheck"]];
+                 //   _registerButton.hidden = YES;
+                 //   _buttonCheckImage.hidden = NO;
+                 //   [_buttonCheckImage setImage:[UIImage imageNamed:@"buttoncheck"]];
                     
                     alert=[UIAlertController
                            
@@ -378,19 +427,19 @@
                     NSString *eventstatus = [NSString stringWithFormat:@"%@",[responseObject valueForKey:@"Register_Status"]];
                     
                     if ([eventstatus isEqualToString:@"1"]) {
-                        [_registerButton setTitle:@"Registered" forState:UIControlStateNormal];
-                        _registerButton.userInteractionEnabled = NO;
+                        [_registerButton setTitle:@"Un Register" forState:UIControlStateNormal];
+                     //   _registerButton.userInteractionEnabled = NO;
                         
-                        _registerButton.hidden = YES;
-                        _buttonCheckImage.hidden = NO;
+                     //   _registerButton.hidden = YES;
+                     //   _buttonCheckImage.hidden = NO;
                         
-                        [_buttonCheckImage setImage:[UIImage imageNamed:@"buttoncheck"]];
+                    //    [_buttonCheckImage setImage:[UIImage imageNamed:@"buttoncheck"]];
                     }
                     else
                     {
                         [_registerButton setTitle:@"Register" forState:UIControlStateNormal];
-                        _registerButton.userInteractionEnabled = YES;
-                        _buttonCheckImage.hidden = YES;
+                       // _registerButton.userInteractionEnabled = YES;
+                       // _buttonCheckImage.hidden = YES;
                     }
                     
                     
@@ -404,12 +453,60 @@
                 }
                 
             }
+            else  if(requestType == RequestTypeUnRegisterJob)
+            {
+                NSLog(@"%@",responseObject);
+                //   NSDictionary *responseDict = [responseObject valueForKey:@"Msg"];
+                
+                
+                
+                //    NSString *respCode =[NSString stringWithFormat:@"%@", [responseObject valueForKey:@"StatusCode"]];
+                
+                NSString *respCode =[NSString stringWithFormat:@"%@", [responseObject valueForKey:@"StatusCode"]];
+                if([respCode isEqualToString:@"200"])
+                {
+                    
+                    [_registerButton setTitle:@"Cancel" forState:UIControlStateNormal];
+                    
+                    //   _registerButton.hidden = YES;
+                    //    _checkimage.hidden = YES;
+                    
+                    //    [_checkimage setImage:[UIImage imageNamed:@"buttoncheck"]];
+                    alert=[UIAlertController
+                           
+                           alertControllerWithTitle:@"CCG" message:@"Successfully Canceled" preferredStyle:UIAlertControllerStyleAlert];
+                    
+                    yesButton = [UIAlertAction
+                                 actionWithTitle:@"OK"
+                                 style:UIAlertActionStyleDefault
+                                 handler:^(UIAlertAction * action)
+                                 {
+                                     
+                                     [GlobalVariables appVars].JobRegister = @"JobRegister";
+                                     
+                                     [self.navigationController popViewControllerAnimated:NO];
+                                     
+                                 }];
+                    
+                    
+                    
+                    [alert addAction:yesButton];
+                    
+                    [self presentViewController:alert animated:YES completion:nil];
+                }
+                else
+                {
+                    alertMsg= [responseObject valueForKey:@"Message"];
+                    [self showAlertWith:alertMsg];
+                }
+                
+            }
             
             
             
             else{
                 
-                alertMsg= [NSMutableString stringWithFormat:@"Server not responding Try After Some Time"];
+                alertMsg= [NSMutableString stringWithFormat:@"Try After Some Time"];
                 [self showAlertWith:alertMsg];
                 
             }
@@ -447,6 +544,11 @@
 */
 
 - (IBAction)registerClick:(id)sender {
+    if ([buttonStr isEqualToString:@"0"]) {
+        [self unregisterservicecall];
+    }
+    else
+    {
     CustomIOSAlertView *alertView = [[CustomIOSAlertView alloc] init];
     
     // Add some custom content to the alert view
@@ -466,6 +568,7 @@
     
     // And launch the dialog
     [alertView show];
+    }
 }
 - (void)customIOS7dialogButtonTouchUpInside: (CustomIOSAlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex
 {
@@ -526,5 +629,12 @@
     NSString *phoneNumber = [@"telprompt://" stringByAppendingString:_contactPhoneLabel.text];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNumber]];
     
+}
+- (IBAction)imagePopClick:(id)sender {
+    TGRImageViewController *viewController = [[TGRImageViewController alloc] initWithImage:self.jobImageView.image];
+    // Don't forget to set ourselves as the transition delegate
+    viewController.transitioningDelegate = self;
+    
+    [self presentViewController:viewController animated:YES completion:nil];
 }
 @end

@@ -239,7 +239,7 @@
             }
             else{
                 
-                alertMsg= [NSMutableString stringWithFormat:@"Server not responding Try After Some Time"];
+                alertMsg= [NSMutableString stringWithFormat:@"Try After Some Time"];
                 [self showAlertWith:alertMsg];
                 
             }
@@ -303,12 +303,18 @@
                      style:UIAlertActionStyleDefault
                      handler:^(UIAlertAction * action)
                      {
-                         _commentTF.hidden = NO;
+                         
+                        _commentTF.hidden =NO;
                          _messagebubbleImage.hidden = NO;
+                         
                      }];
+        
+        
         [alert addAction:yesButton];
         [alert addAction:noButton];
         [self presentViewController:alert animated:YES completion:nil];
+        
+        
     }
    
     // [self.passwordTF resignFirstResponder];

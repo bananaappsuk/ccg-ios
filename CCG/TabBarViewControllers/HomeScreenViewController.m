@@ -7,7 +7,6 @@
 //
 
 #import "HomeScreenViewController.h"
-#import "ProfileViewController.h"
 
 @interface HomeScreenViewController ()
 
@@ -17,7 +16,7 @@
 {
     UIImage* profileImage;
     UIBarButtonItem *rightButton;
-    UIButton *profileButton;
+    
     UIImageView *tileImageView;
 }
 
@@ -39,22 +38,13 @@
     
  //   [[UITabBar appearance] setTintColor:[UIColor colorWithRed:222.0f/255.0f green:105.0f/255.0f blue:8.0f/255.0f alpha:1.0f]];
     
-//    tileImageView = [[UIImageView alloc]init];
-//    tileImageView.frame = CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-50, 10, 30, 30);
-//
-//    tileImageView.layer.cornerRadius = 30/2.0f;
-//    tileImageView.clipsToBounds = YES;
+    tileImageView = [[UIImageView alloc]init];
+    tileImageView.frame = CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-50, 10, 30, 30);
     
-    profileButton = [[UIButton alloc]init ];
-    profileButton.frame = CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-50, 10, 30, 30);
+    tileImageView.layer.cornerRadius = 30/2.0f;
+    tileImageView.clipsToBounds = YES;
     
-    profileButton.layer.cornerRadius = 30/2.0f;
-    profileButton.clipsToBounds = YES;
-    
-    [profileButton addTarget:self action:@selector(profileClick)
-     forControlEvents:UIControlEventTouchUpInside];
-    [self.navigationController.navigationBar addSubview:profileButton];
- //   [self.navigationController.navigationBar addSubview:tileImageView];
+    [self.navigationController.navigationBar addSubview:tileImageView];
     
 }
 -(void)viewWillAppear:(BOOL)animated
@@ -90,9 +80,7 @@
 
     if([imageStr isEqualToString:@""])
     {
-      //  [tileImageView setImage: [UIImage imageNamed:@"userPlaceHolder"]];
-        
-        [profileButton setImage:[UIImage imageNamed:@"userPlaceHolder"] forState:UIControlStateNormal];
+        [tileImageView setImage: [UIImage imageNamed:@"userPlaceHolder"]];
         
        // [profileImage setImage:[UIImage imageNamed:@"Sample"]];
     }
@@ -107,9 +95,8 @@
               
              //   profileImage = [UIImage imageWithData:data];
                 
-            //    [tileImageView setImage: [UIImage imageWithData:data]];
+                [tileImageView setImage: [UIImage imageWithData:data]];
                 
-                [profileButton setImage:[UIImage imageWithData:data] forState:UIControlStateNormal];
                 
                // [navbar addSubview:tileImageView];
             
@@ -146,16 +133,6 @@
     return [UIImage imageWithData:data];
 }
 
--(void)profileClick
-{
-    ProfileViewController *profileVC;
-    profileVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"ProfileViewController"];
-    
-    // hospVC.urlStringdignosticImage = [Dict valueForKey:@"centerimage"];
-    
-    [self.navigationController pushViewController:profileVC animated:YES];
-}
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -164,14 +141,14 @@
 -(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
     if([item.title  isEqualToString: @"Home"])
     {
-       // tileImageView.hidden = NO;
-         profileButton.hidden = NO;
+        tileImageView.hidden = NO;
+        
         NSString *imageStr = [[NSUserDefaults standardUserDefaults]valueForKey:@"User_Pic"];
         
         if([imageStr isEqualToString:@""])
         {
-          //  [tileImageView setImage: [UIImage imageNamed:@"userPlaceHolder"]];
-             [profileButton setImage:[UIImage imageNamed:@"userPlaceHolder"] forState:UIControlStateNormal];
+            [tileImageView setImage: [UIImage imageNamed:@"userPlaceHolder"]];
+            
             // [profileImage setImage:[UIImage imageNamed:@"Sample"]];
         }
         else
@@ -185,9 +162,9 @@
                     
                     //   profileImage = [UIImage imageWithData:data];
                     
-                  //  [tileImageView setImage: [UIImage imageWithData:data]];
+                    [tileImageView setImage: [UIImage imageWithData:data]];
                     
-                     [profileButton setImage:[UIImage imageWithData:data] forState:UIControlStateNormal];
+                    
                     // [navbar addSubview:tileImageView];
                     
                     //                rightButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageWithData:data] style:UIBarButtonItemStylePlain target:self action:nil];
@@ -202,20 +179,17 @@
     }
     else if([item.title  isEqualToString: @"Profile"])
     {
-      //  tileImageView.hidden = YES;
-        profileButton.hidden = YES;
+        tileImageView.hidden = YES;
         // self.navigationItem.title = @"Profile";
     }
     else if([item.title  isEqualToString: @"Notifications"])
     {
         // self.navigationItem.title = @"Notifications";
-     //   tileImageView.hidden = YES;
-         profileButton.hidden = YES;
+        tileImageView.hidden = YES;
     }
   
     else if([item.title  isEqualToString: @"More"]) {
-      //   tileImageView.hidden = YES;
-         profileButton.hidden = YES;
+         tileImageView.hidden = YES;
     }
 }
 /*

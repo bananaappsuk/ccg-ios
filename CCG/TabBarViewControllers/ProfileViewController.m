@@ -25,7 +25,6 @@
     NSString *passwordString;
     
     UIImage *image;
-    UIView *profileView;
 }
 
 - (void)viewDidLoad {
@@ -48,15 +47,18 @@
     _confirmPasswordTF.hidden = YES;
     _submitButton.hidden = YES;
     
-    _currentTFButton.hidden = YES;
-    _passwordTFButton.hidden = YES;
-    _confirmTFButton.hidden = YES;
-    
-    _nameTF.userInteractionEnabled = NO;
+    _usernameTF.userInteractionEnabled = NO;
     _titleTF.userInteractionEnabled = NO;
+    _firstNameTF.userInteractionEnabled = NO;
+    _lastNameTF.userInteractionEnabled = NO;
+    
+    _userEmailTF.userInteractionEnabled = NO;
+    _userPhoneTF.userInteractionEnabled = NO;
     _imageChangeButton.userInteractionEnabled = NO;
     
-  
+    
+    [_userEmailTF setKeyboardType:UIKeyboardTypeEmailAddress];
+    [_userPhoneTF setKeyboardType:UIKeyboardTypePhonePad];
    
    //  self.submitLayoutConstraint.constant = -160;
     
@@ -75,45 +77,10 @@
     _PasswordTF.hidden = YES;
     _confirmPasswordTF.hidden = YES;
     _submitButton.hidden = YES;
-    _currentTFButton.hidden = YES;
-    _passwordTFButton.hidden = YES;
-    _confirmTFButton.hidden = YES;
     _currentPasswordTF.text = @"";
     _PasswordTF.text = @"";
     _confirmPasswordTF.text = @"";
    // [_changePasswordButton setTitle:@"ChangePassword" forState:UIControlStateNormal];
-    
-    [self.navigationController.navigationBar setBackgroundColor:[UIColor whiteColor]];
-    self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
- 
-    self.navigationController.navigationBar.backItem.title = @" ";
-    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
-    
-    
-    [self.navigationController.navigationBar setTitleTextAttributes:
-     @{NSForegroundColorAttributeName:[UIColor colorWithRed:120.0f/255.0f green:120.0f/255.0f blue:130.0f/255.0f alpha:1.0f]}];
-    
-    //    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor redColor]};
-    //
-    //    self.navigationItem.title = @"Home";
-     self.navigationItem.title = @"Choosen Care Group";
-    
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back"]style:UIBarButtonItemStylePlain
-                                                                  target:self
-                                                                  action:@selector(HomeView)];
-    [backButton setTintColor:[UIColor blackColor]];
-    self.navigationItem.leftBarButtonItem = backButton;
-//    profileView = [[UIView alloc]init ];
-//    profileView.frame = CGRectMake(self.view.frame.origin.x+self.view.frame.size.width-50, 10, 30, 30);
-//
-//    profileView.layer.cornerRadius = 30/2.0f;
-//    profileView.clipsToBounds = YES;
-//    [self.navigationController.navigationBar addSubview:profileView];
-    
-}
--(void)HomeView
-{
-    [self.navigationController popViewControllerAnimated:NO];
 }
 
 -(void)viewDidDisappear:(BOOL)animated
@@ -321,8 +288,8 @@
         
         NSDictionary *profileData = [[NSDictionary alloc] initWithObjectsAndKeys:
                                       UserId,@"ID",
-                                     _nameTF.text,@"Name",
-                                     _titleTF.text,@"Title",
+                                     _userEmailTF.text,@"Email",
+                                     _userPhoneTF.text,@"Mobile",
                                      imageData_base64,@"User_Pic",
                                      
                                      nil];
@@ -456,13 +423,18 @@
                 {
 
                     
-                    _userMailLabel.text = [responseObject valueForKey:@"Email"];
+                    _userEmailTF.text = [responseObject valueForKey:@"Email"];
+                    _userPhoneTF.text = [responseObject valueForKey:@"Mobile"];
                     _mailLabel.text = [responseObject valueForKey:@"Email"];
-                    _nameTF.text = [responseObject valueForKey:@"Name"];
-                    _phoneLabel.text = [responseObject valueForKey:@"Mobile"];
+                    _firstNameTF.text = [responseObject valueForKey:@"Name"];
                     _titleTF.text = [responseObject valueForKey:@"Title"];
+                    _lastNameTF.text = [responseObject valueForKey:@"LastName"];
+                    _usernameTF.text = [responseObject valueForKey:@"Username"];
+                    
+                    
                   NSString *imageStr = [responseObject valueForKey:@"User_Pic"];
-                  
+                    
+                    
                     [[NSUserDefaults standardUserDefaults]setValue:imageStr forKey:@"User_Pic"];
                     [[NSUserDefaults standardUserDefaults]synchronize];
                     
@@ -502,7 +474,7 @@
             }
             else{
                 
-                alertMsg= [NSMutableString stringWithFormat:@"Server not responding Try After Some Time"];
+                alertMsg= [NSMutableString stringWithFormat:@"Try After Some Time"];
                 [self showAlertWith:alertMsg];
                 
             }
@@ -521,9 +493,6 @@
         _PasswordTF.hidden = NO;
         _confirmPasswordTF.hidden = NO;
         _submitButton.hidden = NO;
-        _currentTFButton.hidden = NO;
-        _passwordTFButton.hidden = NO;
-        _confirmTFButton.hidden = NO;
        //  self.submitLayoutConstraint.constant = 170;
     }
     else if([buttonStr isEqualToString:@"1"])
@@ -533,10 +502,8 @@
         _currentPasswordTF.hidden = YES;
         _PasswordTF.hidden = YES;
         _confirmPasswordTF.hidden = YES;
-       _submitButton.hidden = YES;
-        _currentTFButton.hidden = YES;
-        _passwordTFButton.hidden = YES;
-        _confirmTFButton.hidden = YES;
+        _submitButton.hidden = YES;
+        
         _currentPasswordTF.text = @"";
         _PasswordTF.text = @"";
         _confirmPasswordTF.text = @"";
@@ -546,14 +513,16 @@
 }
 
 - (IBAction)editButtonClick:(id)sender {
+    Validation *validate = [Validation new];
+    
     if([editStr isEqualToString:@"0"])
     {
         editStr=@"1";
         [_editButton setTitle: @"Save" forState: UIControlStateNormal];
        
-          _nameTF.userInteractionEnabled = YES;
-          _titleTF.userInteractionEnabled = YES;
-        _imageChangeButton.userInteractionEnabled = YES;
+          _userEmailTF.userInteractionEnabled = YES;
+          _userPhoneTF.userInteractionEnabled = YES;
+          _imageChangeButton.userInteractionEnabled = YES;
         
     }
     else if([editStr isEqualToString:@"1"])
@@ -562,23 +531,35 @@
        
         
       
-        if (_nameTF.text.length == 0) {
+        if (_userEmailTF.text.length == 0) {
             alertMsg = [NSMutableString stringWithFormat:@"Enter User Name"];
             [self showAlertWith:alertMsg];
         }
-        else if (_titleTF.text.length == 0)
+        else if (_userPhoneTF.text.length == 0)
         {
-            alertMsg = [NSMutableString stringWithFormat:@"Enter Title"];
+            alertMsg = [NSMutableString stringWithFormat:@"Enter Mobile Number"];
             [self showAlertWith:alertMsg];
+        }
+        else if (![validate isEmailString:_userEmailTF.text])
+        {
+            alertMsg = [NSMutableString stringWithFormat:@"Enter Valid Email"];
+            [self showAlertWith:alertMsg];
+            
+        }
+        else if (![validate isPhoneNumString:_userPhoneTF.text])
+        {
+            alertMsg = [NSMutableString stringWithFormat:@"Enter Valid Mobile Number"];
+            [self showAlertWith:alertMsg];
+            
         }
         else
         {
             
             [_editButton setTitle: @"Edit" forState: UIControlStateNormal];
             
-            _nameTF.userInteractionEnabled = NO;
-            _titleTF.userInteractionEnabled = NO;
-             _imageChangeButton.userInteractionEnabled = NO;
+            _userEmailTF.userInteractionEnabled = NO;
+            _userPhoneTF.userInteractionEnabled = NO;
+            _imageChangeButton.userInteractionEnabled = NO;
             [self EditProfileRequest];
         }
        
@@ -630,50 +611,5 @@
         [self ChangePasswordRequest];
     }
     
-}
-- (IBAction)currentTFButtonClick:(id)sender {
-    if (self.currentPasswordTF.secureTextEntry == YES) {
-       
-        
-        self.currentPasswordTF.secureTextEntry = NO;
-        
-    }
-    
-    else
-    {
-       
-        self.currentPasswordTF.secureTextEntry = YES;
-    }
-
-    
-}
-
-- (IBAction)passwordTFButtonClick:(id)sender {
-    if (self.PasswordTF.secureTextEntry == YES) {
-   
-        self.PasswordTF.secureTextEntry = NO;
-        
-    }
-    
-    else
-    {
-        
-        self.PasswordTF.secureTextEntry = YES;
-    }
-}
-
-- (IBAction)confirmTFButtonClick:(id)sender {
-    if (self.confirmPasswordTF.secureTextEntry == YES) {
-        
-        
-        self.confirmPasswordTF.secureTextEntry = NO;
-        
-    }
-    
-    else
-    {
-        
-        self.confirmPasswordTF.secureTextEntry = YES;
-    }
 }
 @end

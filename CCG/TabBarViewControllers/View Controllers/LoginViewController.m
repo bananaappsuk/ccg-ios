@@ -69,6 +69,8 @@
                                              selector:@selector(keyboardWillBeHidden:)
                                                  name:UIKeyboardWillHideNotification object:nil];
 
+    _userNameTF.text = [[NSUserDefaults standardUserDefaults]valueForKey:@"userName"];
+    _passwordTF.text = [[NSUserDefaults standardUserDefaults]valueForKey:@"userPassword"];
     
 }
 -(void)viewWillAppear:(BOOL)animated
@@ -132,8 +134,8 @@
 
                [[NSUserDefaults standardUserDefaults] synchronize];
                     
-                  //  _userNameTF.text = @"";
-                  //  _passwordTF.text = @"";
+                    _userNameTF.text = @"";
+                    _passwordTF.text = @"";
                     [_checkBoxButton setImage:[UIImage imageNamed:@"UnCheckMark"] forState:UIControlStateNormal];
                     
 //                    HomeScreenViewController *homeVC;
@@ -169,7 +171,7 @@
             }
             else{
                 
-                alertMsg= [NSMutableString stringWithFormat:@"Server Not Responding Try After Some Time"];
+                alertMsg= [NSMutableString stringWithFormat:@"Try After Some Time"];
                 [self showAlertWith:alertMsg];
                 
             }
@@ -286,6 +288,7 @@
     }
     else
    {
+       [[NSUserDefaults standardUserDefaults]setValue:_userNameTF.text forKey:@"userName"];
        [[NSUserDefaults standardUserDefaults]setValue:_passwordTF.text forKey:@"userPassword"];
        [[NSUserDefaults standardUserDefaults]synchronize];
        [self sendLoginRequest];

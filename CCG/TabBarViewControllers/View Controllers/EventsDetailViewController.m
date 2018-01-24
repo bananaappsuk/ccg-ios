@@ -13,6 +13,8 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "ApiClass.h"
 #import <MBProgressHUD/MBProgressHUD.h>
+#import "TGRImageViewController.h"
+#import "TGRImageZoomAnimationController.h"
 #define Device_Width [[UIScreen mainScreen] bounds].size.width
 #define Device_Height [[UIScreen mainScreen] bounds].size.height
 
@@ -20,7 +22,7 @@
 #define NO_Of_Pages 5
 #define PAGE_CONTROL_WIDTH 120
 #define PAGE_CONTROL_HEIGHT 25
-@interface EventsDetailViewController ()<CustomIOSAlertViewDelegate,apiRequestProtocol>
+@interface EventsDetailViewController ()<CustomIOSAlertViewDelegate,apiRequestProtocol,UIViewControllerTransitioningDelegate>
 
 @end
 
@@ -33,7 +35,7 @@
     NSString *eventid;
     NSString *userid;
     NSString *moduleType;
-    NSString *alertMsg;
+    NSString *alertMsg, *buttonStr;
     NSString *eventModuleID;
     UIAlertController * alert;
     UIAlertAction* yesButton;
@@ -112,6 +114,9 @@
 //
 
     
+   _buttonCheckimage.hidden = YES;
+    
+    self.eventImageView.contentMode = UIViewContentModeScaleAspectFill;
    
 }
 -(void)viewWillAppear:(BOOL)animated
@@ -120,6 +125,7 @@
     
     if ([moduleType isEqualToString:_HomeStr]) {
         
+        _registerButton.hidden = YES;
          eventModuleID = [[NSUserDefaults standardUserDefaults] valueForKey:@"eventModuleId"];
        
         [self getEvent];
@@ -127,6 +133,8 @@
     }
     else
     {
+        _registerButton.hidden = NO;
+        
         imagesArray = [[NSUserDefaults standardUserDefaults] valueForKey:@"eventimageArr"];
 
       //  if ([_urlStringeventImage isEqualToString:@""]) {
@@ -137,6 +145,14 @@
             [self.eventImageView sd_setImageWithURL:[NSURL URLWithString:self.urlStringeventImage] placeholderImage:[UIImage imageNamed:@"NoImage"]];
      //   }
 
+//        UIImage *newImage = [UIImage imageNamed:_urlStringeventImage];
+//        [_imagePopButton setImage:newImage forState:UIControlStateHighlighted];
+//
+      
+        
+        
+        
+        
         
 
         _registerButton.layer.cornerRadius = 20.0;
@@ -155,19 +171,21 @@
         NSString *eventstatus = [[NSUserDefaults standardUserDefaults] valueForKey:@"eventstatus"];
 
         if ([eventstatus isEqualToString:@"1"]) {
-            [_registerButton setTitle:@"Registered" forState:UIControlStateNormal];
-            _registerButton.userInteractionEnabled = NO;
+            [_registerButton setTitle:@"Un Register" forState:UIControlStateNormal];
+            
+            buttonStr = @"0";
+          //  _registerButton.userInteractionEnabled = NO;
 
-            _registerButton.hidden = YES;
-            _buttonCheckimage.hidden = NO;
+         //   _registerButton.hidden = YES;
+         //   _buttonCheckimage.hidden = NO;
 
-            [_buttonCheckimage setImage:[UIImage imageNamed:@"buttoncheck"]];
+        //    [_buttonCheckimage setImage:[UIImage imageNamed:@"buttoncheck"]];
         }
         else
         {
             [_registerButton setTitle:@"Register" forState:UIControlStateNormal];
-            _registerButton.userInteractionEnabled = YES;
-            _buttonCheckimage.hidden = YES;
+           // _registerButton.userInteractionEnabled = YES;
+           // _buttonCheckimage.hidden = YES;
         }
 
 
@@ -214,6 +232,22 @@
 //
     
     self.navigationItem.title = @"Choosen Care Group";
+}
+
+
+
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+    if ([presented isKindOfClass:TGRImageViewController.class]) {
+        return [[TGRImageZoomAnimationController alloc] initWithReferenceImageView:self.eventImageView];
+    }
+    return nil;
+}
+
+-(id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
+    if ([dismissed isKindOfClass:TGRImageViewController.class]) {
+        return [[TGRImageZoomAnimationController alloc] initWithReferenceImageView:self.eventImageView];
+    }
+    return nil;
 }
 -(void)HomeView
 {
@@ -342,6 +376,33 @@
         
     });
 }
+-(void)unregisterservicecall
+{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    hud.label.text = @"Please wait....";
+    
+    
+    
+    ApiClass *apiRequest = [[ApiClass alloc] init];
+    apiRequest.apiDelegate = self;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        
+        
+        NSString *strURL=[NSString stringWithFormat:@"http://ccg.bananaappscenter.com/api/User/Unregistred?UserID=%@&ModuleID=%@",userid,eventid];
+        
+        NSDictionary *trainningData = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                       eventid,@"ModuleID",
+                                       userid,@"UserID",
+                                        nil];
+        
+        [apiRequest SendHttpPost:trainningData withUrl:strURL withrequestType:RequestTypeUnRegisterEvent];
+        
+    });
+}
+
 -(void)responseMethod:(id) responseObject withRequestType:(RequestType) requestType;
 {
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -364,11 +425,11 @@
                 {
                     
                     
-                 //   [_registerButton setTitle:@"Registered" forState:UIControlStateNormal];
-                    _registerButton.hidden = YES;
-                    _buttonCheckimage.hidden = NO;
+                   [_registerButton setTitle:@"Un Register" forState:UIControlStateNormal];
+                   // _registerButton.hidden = YES;
+                   // _buttonCheckimage.hidden = NO;
                     
-                    [_buttonCheckimage setImage:[UIImage imageNamed:@"buttoncheck"]];
+                  //  [_buttonCheckimage setImage:[UIImage imageNamed:@"buttoncheck"]];
                     alert=[UIAlertController
                            
                            alertControllerWithTitle:@"CCG" message:@"Successfully Registerd" preferredStyle:UIAlertControllerStyleAlert];
@@ -457,19 +518,19 @@
                         
                         
                         if ([eventstatus isEqualToString:@"1"]) {
-                            [_registerButton setTitle:@"Registered" forState:UIControlStateNormal];
-                            _registerButton.userInteractionEnabled = NO;
+                            [_registerButton setTitle:@"Un Register" forState:UIControlStateNormal];
+                        //    _registerButton.userInteractionEnabled = NO;
 
-                            _registerButton.hidden = YES;
-                            _buttonCheckimage.hidden = NO;
+                         //   _registerButton.hidden = YES;
+                         //   _buttonCheckimage.hidden = NO;
 
-                            [_buttonCheckimage setImage:[UIImage imageNamed:@"buttoncheck"]];
+                          //  [_buttonCheckimage setImage:[UIImage imageNamed:@"buttoncheck"]];
                         }
                         else
                         {
                             [_registerButton setTitle:@"Register" forState:UIControlStateNormal];
-                            _registerButton.userInteractionEnabled = YES;
-                            _buttonCheckimage.hidden = YES;
+                          //  _registerButton.userInteractionEnabled = YES;
+                          //  _buttonCheckimage.hidden = YES;
                         }
                         
                         
@@ -483,10 +544,58 @@
                     }
             
                 }
+          else  if(requestType == RequestTypeUnRegisterEvent)
+          {
+              NSLog(@"%@",responseObject);
+              //   NSDictionary *responseDict = [responseObject valueForKey:@"Msg"];
+              
+              
+              
+              //    NSString *respCode =[NSString stringWithFormat:@"%@", [responseObject valueForKey:@"StatusCode"]];
+              
+              NSString *respCode =[NSString stringWithFormat:@"%@", [responseObject valueForKey:@"StatusCode"]];
+              if([respCode isEqualToString:@"200"])
+              {
+                  
+                  [_registerButton setTitle:@"Un Register" forState:UIControlStateNormal];
+                  
+                  //   _registerButton.hidden = YES;
+                  //    _checkimage.hidden = YES;
+                  
+                  //    [_checkimage setImage:[UIImage imageNamed:@"buttoncheck"]];
+                  alert=[UIAlertController
+                         
+                         alertControllerWithTitle:@"CCG" message:@"Successfully Un Registerd" preferredStyle:UIAlertControllerStyleAlert];
+                  
+                  yesButton = [UIAlertAction
+                               actionWithTitle:@"OK"
+                               style:UIAlertActionStyleDefault
+                               handler:^(UIAlertAction * action)
+                               {
+                                   
+                                   [GlobalVariables appVars].EventRegister = @"RegisterEvent";
+                                   
+                                   [self.navigationController popViewControllerAnimated:NO];
+                                   
+                               }];
+                  
+                  
+                  
+                  [alert addAction:yesButton];
+                  
+                  [self presentViewController:alert animated:YES completion:nil];
+              }
+              else
+              {
+                  alertMsg= [responseObject valueForKey:@"Message"];
+                  [self showAlertWith:alertMsg];
+              }
+              
+          }
             
             else{
                 
-                alertMsg= [NSMutableString stringWithFormat:@"Server not responding Try After Some Time"];
+                alertMsg= [NSMutableString stringWithFormat:@"Try After Some Time"];
                 [self showAlertWith:alertMsg];
                 
             }
@@ -526,6 +635,11 @@
 
 - (IBAction)registerClick:(id)sender {
     
+    if ([buttonStr isEqualToString:@"0"]) {
+        [self unregisterservicecall];
+    }
+    else
+    {
     CustomIOSAlertView *alertView = [[CustomIOSAlertView alloc] init];
     
     // Add some custom content to the alert view
@@ -545,6 +659,7 @@
     
     // And launch the dialog
     [alertView show];
+    }
 }
 - (void)customIOS7dialogButtonTouchUpInside: (CustomIOSAlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex
 {
@@ -600,5 +715,18 @@
   //  [[UIApplication sharedApplication] openURL:[NSURL URLWithString:_contactNumberLabel.text]];
     NSString *phoneNumber = [@"telprompt://" stringByAppendingString:_contactNumberLabel.text];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNumber]];
+}
+- (IBAction)imagePopClick:(id)sender {
+//
+//    TGRImageViewController *viewController = [[TGRImageViewController alloc] initWithImage:[self.imagePopButton imageForState:UIControlStateNormal]];
+//    viewController.transitioningDelegate = self;
+//
+//    [self presentViewController:viewController animated:YES completion:nil];
+//
+    TGRImageViewController *viewController = [[TGRImageViewController alloc] initWithImage:self.eventImageView.image];
+    // Don't forget to set ourselves as the transition delegate
+    viewController.transitioningDelegate = self;
+    
+    [self presentViewController:viewController animated:YES completion:nil];
 }
 @end

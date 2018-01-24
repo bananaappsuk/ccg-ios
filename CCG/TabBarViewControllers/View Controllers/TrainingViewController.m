@@ -192,7 +192,7 @@
             
             else{
                 
-                alertMsg= [NSMutableString stringWithFormat:@"Server not responding Try After Some Time"];
+                alertMsg= [NSMutableString stringWithFormat:@"Server Not Responding"];
                 [self showAlertWith:alertMsg];
                 
             }
@@ -250,7 +250,7 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 cell.trainingImageView.image = [UIImage imageWithData:imageData];
                 if (cell.trainingImageView.image == nil) {
-                    cell.trainingImageView.image = [UIImage imageNamed:@"Sample"];
+                    cell.trainingImageView.image = [UIImage imageNamed:@"NoImage"];
                 }
                 
             });

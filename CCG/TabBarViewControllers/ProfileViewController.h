@@ -14,12 +14,17 @@
 
 @property (strong, nonatomic) IBOutlet UIView *userView;
 @property (strong, nonatomic) IBOutlet UIView *userExtraView;
-@property (strong, nonatomic) IBOutlet UITextField *nameTF;
+@property (strong, nonatomic) IBOutlet UITextField *usernameTF;
+@property (strong, nonatomic) IBOutlet UITextField *firstNameTF;
+@property (strong, nonatomic) IBOutlet UITextField *lastNameTF;
 @property (strong, nonatomic) IBOutlet UITextField *titleTF;
+
 @property (strong, nonatomic) IBOutlet UILabel *mailLabel;
 @property (strong, nonatomic) IBOutlet UILabel *phoneLabel;
 @property (strong, nonatomic) IBOutlet UILabel *userMailLabel;
 
+@property (strong, nonatomic) IBOutlet UITextField *userEmailTF;
+@property (strong, nonatomic) IBOutlet UITextField *userPhoneTF;
 
 
 @property (strong, nonatomic) IBOutlet UIButton *editButton;
@@ -42,12 +47,6 @@
 - (IBAction)changePasswordClick:(id)sender;
 - (IBAction)editButtonClick:(id)sender;
 - (IBAction)submitClick:(id)sender;
-@property (strong, nonatomic) IBOutlet UIButton *currentTFButton;
-@property (strong, nonatomic) IBOutlet UIButton *passwordTFButton;
-@property (strong, nonatomic) IBOutlet UIButton *confirmTFButton;
-- (IBAction)currentTFButtonClick:(id)sender;
-- (IBAction)passwordTFButtonClick:(id)sender;
-- (IBAction)confirmTFButtonClick:(id)sender;
 
 
 @end

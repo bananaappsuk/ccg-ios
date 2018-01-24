@@ -34,6 +34,9 @@ typedef enum{
     RequestTypePhotoOrder,
     RequestTypeShopDetails,
     RequestTypeMenuItems,
+    RequestTypeUnRegisterTraining,
+    RequestTypeUnRegisterJob,
+    RequestTypeUnRegisterEvent,
     RequestTypePayment
     }RequestType;
 

@@ -12,6 +12,9 @@
 
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic,retain) NSMutableString *UserLogin;
+@property (nonatomic,retain) NSMutableString *UserName;
+@property (nonatomic,retain) NSMutableString *UserPasswword;
+
 
 @end
 

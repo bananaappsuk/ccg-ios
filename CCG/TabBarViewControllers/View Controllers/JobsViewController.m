@@ -192,7 +192,7 @@
             
             else{
                 
-                alertMsg= [NSMutableString stringWithFormat:@"Server not responding Try After Some Time"];
+                alertMsg= [NSMutableString stringWithFormat:@"Server Not Responding"];
                 [self showAlertWith:alertMsg];
                 
             }

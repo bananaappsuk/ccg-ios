@@ -72,6 +72,8 @@
     [FIRApp configure];
     
     _UserLogin =[[NSUserDefaults standardUserDefaults]valueForKey:@"LoginMessage"];
+    _UserName = [[NSUserDefaults standardUserDefaults]valueForKey:@"userName"];
+    _UserPasswword = [[NSUserDefaults standardUserDefaults]valueForKey:@"userPassword"];
     
     if ([_UserLogin isEqualToString:@"Login successfully completed."] ) {
         [self goToHomePage];
@@ -167,8 +169,15 @@ didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSe
     
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    LoginViewController *homeViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+    LoginViewController *homeViewController = [[LoginViewController alloc]init];
+    homeViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+    //  if ([[GlobalVariables appVars].logincrdentials isEqualToString:@"Login"]) {
     
+    
+    
+    homeViewController.userNameTF.text = _UserName;
+    homeViewController.passwordTF.text = _UserPasswword;
+    //   }
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
     
     
