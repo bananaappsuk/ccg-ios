@@ -423,13 +423,23 @@
                 {
 
                     
+//                    NSString *lastname = [NSString stringWithFormat:@"%@",[responseObject valueForKey:@"LastName"]];
+//
+//                    if ([lastname isEqualToString:@"null"]) {
+//                        _lastNameTF.placeholder = @"Lastname";
+//                    }
+//                    else
+//                    {
+//                        _lastNameTF.text = [NSString stringWithFormat:@"%@ %@",@"Lastname:",[responseObject valueForKey:@"LastName"]];
+//                    }
+                    
                     _userEmailTF.text = [responseObject valueForKey:@"Email"];
                     _userPhoneTF.text = [responseObject valueForKey:@"Mobile"];
                     _mailLabel.text = [responseObject valueForKey:@"Email"];
-                    _firstNameTF.text = [responseObject valueForKey:@"Name"];
-                    _titleTF.text = [responseObject valueForKey:@"Title"];
-                    _lastNameTF.text = [responseObject valueForKey:@"LastName"];
-                    _usernameTF.text = [responseObject valueForKey:@"Username"];
+                    _firstNameTF.text = [NSString stringWithFormat:@"%@ %@",@"Firstname:", [responseObject valueForKey:@"Name"]];
+                    _titleTF.text = [NSString stringWithFormat:@"%@ %@",@"Title:", [responseObject valueForKey:@"Title"]];
+                    _lastNameTF.text = [NSString stringWithFormat:@"%@ %@",@"Lastname:",[responseObject valueForKey:@"LastName"]];
+                    _usernameTF.text = [NSString stringWithFormat:@"%@ %@",@"Username:",[responseObject valueForKey:@"Username"]];
                     
                     
                   NSString *imageStr = [responseObject valueForKey:@"User_Pic"];
