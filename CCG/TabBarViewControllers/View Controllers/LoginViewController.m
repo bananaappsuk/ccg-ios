@@ -72,6 +72,8 @@
     _userNameTF.text = [[NSUserDefaults standardUserDefaults]valueForKey:@"userName"];
     _passwordTF.text = [[NSUserDefaults standardUserDefaults]valueForKey:@"userPassword"];
     
+  //  [self restrictRotation:NO];
+    
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -304,6 +306,12 @@
     
     [self.navigationController pushViewController:homeVC animated:YES];
 }
+
+//-(void) restrictRotation:(BOOL) restriction
+//{
+//    AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+//    appDelegate.restrictRotation = restriction;
+//}
 
 - (IBAction)agreeTermsClick:(id)sender {
     

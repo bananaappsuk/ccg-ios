@@ -31,6 +31,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    
+    
    
     if( SYSTEM_VERSION_LESS_THAN( @"10.0" ) )
     {
@@ -188,6 +190,13 @@ didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSe
 }
 
 
+//-(NSUInteger)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
+//{
+//    if(self.restrictRotation)
+//        return UIInterfaceOrientationMaskPortrait;
+//    else
+//        return UIInterfaceOrientationMaskAll;
+//}
 
 
 

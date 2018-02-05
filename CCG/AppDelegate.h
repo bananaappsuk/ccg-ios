@@ -15,6 +15,7 @@
 @property (nonatomic,retain) NSMutableString *UserName;
 @property (nonatomic,retain) NSMutableString *UserPasswword;
 
+//@property () BOOL restrictRotation;
 
 @end
 

@@ -22,6 +22,9 @@
     NSString *alertMsg;
     NSString *str1,*userId;
      UIRefreshControl *refreshControl;
+    UIAlertController * alert;
+    UIAlertAction* yesButton;
+    UIAlertAction* noButton;
 }
 
 - (void)viewDidLoad {
@@ -125,7 +128,7 @@
                 
                 //    NSString *respCode =[NSString stringWithFormat:@"%@", [responseObject valueForKey:@"StatusCode"]];
                 
-                
+                NSString *emptyStr = [NSString stringWithFormat:@"%@", [responseObject valueForKey:@"StatusCode"]];
                 NSString *respCode =[NSString stringWithFormat:@"%@", [responseDict valueForKey:@"StatusCode"]];
                 if([respCode isEqualToString:@"200"])
                 {
@@ -142,6 +145,27 @@
                     [_jobsTableView reloadData];
                     
                 }
+               else if([emptyStr isEqualToString:@"401"])
+                {
+                    
+                   
+                    
+                    alert=[UIAlertController
+                           
+                           alertControllerWithTitle:@"CCG" message:[responseObject valueForKey:@"Message"] preferredStyle:UIAlertControllerStyleAlert];
+                    
+                    yesButton = [UIAlertAction
+                                 actionWithTitle:@"OK"
+                                 style:UIAlertActionStyleDefault
+                                 handler:^(UIAlertAction * action)
+                                 {
+                                    [self.navigationController popViewControllerAnimated:NO];
+                                 }];
+                    
+                    [alert addAction:yesButton];
+                    [self presentViewController:alert animated:YES completion:nil];
+                }
+                
                 else
                 {
                     alertMsg= [responseDict valueForKey:@"Message"];

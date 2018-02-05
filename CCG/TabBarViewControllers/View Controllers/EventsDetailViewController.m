@@ -147,14 +147,7 @@
 
 //        UIImage *newImage = [UIImage imageNamed:_urlStringeventImage];
 //        [_imagePopButton setImage:newImage forState:UIControlStateHighlighted];
-//
-      
         
-        
-        
-        
-        
-
         _registerButton.layer.cornerRadius = 20.0;
         _registerButton.layer.borderColor=[UIColor whiteColor].CGColor;
         _registerButton.layer.borderWidth=1.0f;
@@ -167,7 +160,6 @@
         NSString *eventpostcode = [[NSUserDefaults standardUserDefaults] valueForKey:@"eventpostcode"];
         eventid = [[NSUserDefaults standardUserDefaults] valueForKey:@"eventId"];
 
-
         NSString *eventstatus = [[NSUserDefaults standardUserDefaults] valueForKey:@"eventstatus"];
 
         if ([eventstatus isEqualToString:@"1"]) {
@@ -175,10 +167,8 @@
             
             buttonStr = @"0";
           //  _registerButton.userInteractionEnabled = NO;
-
          //   _registerButton.hidden = YES;
          //   _buttonCheckimage.hidden = NO;
-
         //    [_buttonCheckimage setImage:[UIImage imageNamed:@"buttoncheck"]];
         }
         else
@@ -229,8 +219,7 @@
     
 //    UIImage *image = [UIImage imageNamed:@"LogoIcon"];
 //    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:image];
-//
-    
+
     self.navigationItem.title = @"Choosen Care Group";
 }
 
@@ -413,13 +402,11 @@
             [self showAlertWith:responseObject];
         }
         else{
-            
-            
+          
             if(requestType ==RequestTypeRegisterEvent)
             {
                 NSLog(@"%@",responseObject);
                 //    NSDictionary *responseDict = [responseObject valueForKey:@"OMsg"];
-                
                 NSString *respCode =[NSString stringWithFormat:@"%@", [responseObject valueForKey:@"StatusCode"]];
                 if([respCode isEqualToString:@"200"])
                 {
@@ -444,16 +431,11 @@
                                     [self.navigationController popViewControllerAnimated:NO];
                                      
                                  }];
-                    
-                    
-                    
+  
                     [alert addAction:yesButton];
                     
                     [self presentViewController:alert animated:YES completion:nil];
   
-                    
-                   
-                    
                 }
                 else if([respCode isEqualToString:@"401"])
                 {
@@ -480,8 +462,7 @@
                     if([respCode isEqualToString:@"200"])
                     {
                         
-                       
-
+ 
                         NSString *eventdisc = [NSString stringWithFormat:@"%@",[responseObject valueForKey:@"Event_Description"]];
                     //    _descriptionTextView.text = [eventArray valueForKey:@"Event_Description"];
 
@@ -513,7 +494,6 @@
                         for (NSDictionary *itemDict in [responseObject valueForKey:@"Event_Photos"]) {
                             
                             [imagesArray addObject:[itemDict valueForKey:@"Event_Photo"]];
-                            
                         }
                         
                         
@@ -532,9 +512,7 @@
                           //  _registerButton.userInteractionEnabled = YES;
                           //  _buttonCheckimage.hidden = YES;
                         }
-                        
-                        
-                        
+
                     }
                   
                     else
@@ -548,9 +526,6 @@
           {
               NSLog(@"%@",responseObject);
               //   NSDictionary *responseDict = [responseObject valueForKey:@"Msg"];
-              
-              
-              
               //    NSString *respCode =[NSString stringWithFormat:@"%@", [responseObject valueForKey:@"StatusCode"]];
               
               NSString *respCode =[NSString stringWithFormat:@"%@", [responseObject valueForKey:@"StatusCode"]];
@@ -572,18 +547,12 @@
                                style:UIAlertActionStyleDefault
                                handler:^(UIAlertAction * action)
                                {
-                                   
                                    [GlobalVariables appVars].EventRegister = @"RegisterEvent";
-                                   
                                    [self.navigationController popViewControllerAnimated:NO];
-                                   
-                               }];
+                                }];
                   
-                  
-                  
-                  [alert addAction:yesButton];
-                  
-                  [self presentViewController:alert animated:YES completion:nil];
+                   [alert addAction:yesButton];
+                   [self presentViewController:alert animated:YES completion:nil];
               }
               else
               {
@@ -717,16 +686,14 @@
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNumber]];
 }
 - (IBAction)imagePopClick:(id)sender {
-//
+
 //    TGRImageViewController *viewController = [[TGRImageViewController alloc] initWithImage:[self.imagePopButton imageForState:UIControlStateNormal]];
 //    viewController.transitioningDelegate = self;
-//
 //    [self presentViewController:viewController animated:YES completion:nil];
-//
+
     TGRImageViewController *viewController = [[TGRImageViewController alloc] initWithImage:self.eventImageView.image];
     // Don't forget to set ourselves as the transition delegate
     viewController.transitioningDelegate = self;
-    
     [self presentViewController:viewController animated:YES completion:nil];
 }
 @end
